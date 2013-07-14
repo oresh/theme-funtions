@@ -101,9 +101,10 @@
   
     $variables['width'] = $dimensions['width'];
     $variables['height'] = $dimensions['height'];
-  
+    $styleclass = 'style-' . $variables['style_name'];
+    
     $variables['attributes'] = array(
-      'class' => $variables['style_name'],
+      'class' => $styleclass,
     );
   
     // Determine the url for the styled image.
