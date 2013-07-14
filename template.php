@@ -86,3 +86,27 @@
     // Send updated $variables to theme function.
     return theme_textfield($variables);
   }
+
+  /**
+   * Add image style class name to rendered image.
+   */
+  function THEMENAME_image_style($variables) {
+    // Determine the dimensions of the styled image.
+    $dimensions = array(
+      'width' => $variables['width'], 
+      'height' => $variables['height'],
+    );
+  
+    image_style_transform_dimensions($variables['style_name'], $dimensions);
+  
+    $variables['width'] = $dimensions['width'];
+    $variables['height'] = $dimensions['height'];
+  
+    $variables['attributes'] = array(
+      'class' => $variables['style_name'],
+    );
+  
+    // Determine the url for the styled image.
+    $variables['path'] = image_style_url($variables['style_name'], $variables['path']);
+    return theme('image', $variables);
+  }
