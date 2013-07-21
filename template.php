@@ -129,8 +129,8 @@
   }
 
   /**
-  * Exclude all the unused core and modules css.
-  */
+   * Exclude all the unused core and modules css.
+   */
   function THEMENAME_css_alter(&$css) {
     $exclude = array(
       'misc/vertical-tabs.css' => FALSE,
@@ -166,4 +166,36 @@
       'modules/user/user.css' => FALSE,
     );
     $css = array_diff_key($css, $exclude);
+  }
+
+  /**
+   * Output fieldset as div.
+   */
+  function seven_fieldset($variables) {
+    $element = $variables['element'];
+    if (!empty($element['#title'])) {
+      $title = 'fieldset-' . strtolower(substr(str_replace(" ", "-", rtrim($element['#title'])), 0, 15));
+      if (substr($title, -1) == '-') {
+        $title = substr($title, 0, -1);
+      }
+    }
+  
+    element_set_attributes($element, array('id'));
+    _form_set_class($element, array('form-wrapper','fieldset', $title));
+    
+    $output = '<div' . drupal_attributes($element['#attributes']) . '>';
+    if (!empty($element['#title'])) {
+      // Always wrap fieldset legends in a SPAN for CSS positioning.
+      $output .= '<div class="fieldset-legend"><span>' . $element['#title'] . '</span></div>';
+    }
+    $output .= '<div class="fieldset-wrapper">';
+    if (!empty($element['#description'])) {
+      $output .= '<div class="fieldset-description">' . $element['#description'] . '</div>';
+    }
+    $output .= $element['#children'];
+    if (isset($element['#value'])) {
+      $output .= $element['#value'];
+    }
+    $output .= '</div></div>';
+    return $output;
   }
