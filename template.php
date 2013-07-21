@@ -111,3 +111,19 @@
     $variables['path'] = image_style_url($variables['style_name'], $variables['path']);
     return theme('image', $variables);
   }
+  
+  /**
+   * Adding menu name class to menu items,
+   * adding menu item depth ass class. 
+   */
+  function THEMENAME_menu_link(array $variables) {
+    $element = $variables['element'];
+    $original_link = $element['#original_link'];
+    $depth = 'depth-' . $original_link['depth'];
+    $menu_name = 'item-' . $original_link['menu_name'];
+  
+    $variables['element']['#attributes']['class'][] = $depth;
+    $variables['element']['#attributes']['class'][] = $menu_name;
+  
+    return theme_menu_link($variables);
+  }
