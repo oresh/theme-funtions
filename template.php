@@ -171,7 +171,7 @@
   /**
    * Output fieldset as div.
    */
-  function seven_fieldset($variables) {
+  function THEMENAME_fieldset($variables) {
     $element = $variables['element'];
     if (!empty($element['#title'])) {
       $title = 'fieldset-' . strtolower(substr(str_replace(" ", "-", rtrim($element['#title'])), 0, 15));
