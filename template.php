@@ -199,3 +199,17 @@
     $output .= '</div></div>';
     return $output;
   }
+
+
+  /**
+   * Theme callback for stack layout.
+   */
+  function THEMENAME_panels_frame_stack($vars) {
+    $output = '';
+    $frame_counter = 0;
+    foreach ($vars['frames'] as $name => $content) {
+      $output .= '<div class="frame clearfix frame-' . $name . ' frame-item-' . $i . '">' . $content . '</div>';
+      $frame_counter++;
+    }
+    return '<div' . $vars['attributes'] . '>' . $output . '</div>';
+  }
