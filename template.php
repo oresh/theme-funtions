@@ -13,6 +13,7 @@
 
   /**
    * Add IE7-8 browser specific css files.
+   * Requires IE browser module. 
    */
   function THEMENAME_preprocess_page(&$vars) {
     drupal_add_css(path_to_theme() . '/css/ie7.css', array('group' => CSS_THEME, 'weight' => 115, 'browsers' => array('IE' => 'lte IE 7', '!IE' => FALSE), 'preprocess' => FALSE));
@@ -79,10 +80,10 @@
       // Add parent name as textfield class. 
       $variables['element']['#attributes']['class'][] = 'feild-' . $variables['element']['#parents'][0] . '-textfield';
     }
-
     // Add label to data-label attribute for input.
-    $variables['element']['#attributes']['data-label'] = $variables['element']['#title'];
-
+    if (isset($variables['element']['#title'])) {
+      $variables['element']['#attributes']['data-label'] = $variables['element']['#title'];
+    }  
     // Send updated $variables to theme function.
     return theme_textfield($variables);
   }
